@@ -386,19 +386,19 @@ void incluir_descricao(FILE *arquivoBin) {
         printf("\nFornecedor:......:%s", novo_produto.fornecedor);
         printf("\nEstoque:.........:%d", novo_produto.quant_est);
 
-        // Solicita confirmação para incluir novamente
-        printf("\nConfirma a inclusão novamente: <s/n>\n");
+        // Solicita confirmação para reativar o produto
+        printf("\nConfirma a reativação do produto: <s/n>\n");
         scanf(" %c", &confirma);
 
-        // Se confirmado, inclui o produto novamente no final do arquivo
+        // Se confirmado, reativa o produto
         if (toupper(confirma) == 'S') {
-          printf("\n== Incluindo novamente... ==\n\n");
-          fseek(arquivoBin, 0, SEEK_END); // Volta para o final do arquivo
-          novo_produto.status = 'a';     // Marcando como ativo
+          printf("\n== Reativando produto... ==\n\n");
+          fseek(arquivoBin, -sizeof(novo_produto), SEEK_CUR);
+          novo_produto.status = 'a'; // Marcando como ativo
           fwrite(&novo_produto, sizeof(novo_produto), 1, arquivoBin);
-          printf("\n=== Produto incluído novamente com sucesso ===\n");
+          printf("\n=== Produto reativado com sucesso ===\n");
         } else {
-          printf("\nProduto não incluído novamente.\n");
+          printf("\nReativação do produto cancelada.\n");
         }
       } else {
         printf("\nProduto já está ativo.\n");
@@ -414,6 +414,48 @@ void incluir_descricao(FILE *arquivoBin) {
 }
 
 
+
 void incluir_codigo(FILE *arquivoBin) {
-  
+  produto novo_produto;
+  char confirma;
+  int codigo_incluir;
+  printf("\nInforme o codigo do registro para incluir novamente: ");
+  scanf("%d", &codigo_incluir);
+  getchar();
+
+  if ((codigo_incluir <= tamanho(arquivoBin)) && (codigo_incluir > 0)) {
+    fseek(arquivoBin, (codigo_incluir - 1) * sizeof(produto), SEEK_SET);
+    fread(&novo_produto, sizeof(novo_produto), 1, arquivoBin);
+
+    // Verifica se o produto está inativo
+    if (novo_produto.status == 'i') {
+      // Exibe informações do produto
+      printf("\nDescrição:.......:%s", novo_produto.descricao);
+      printf("\nPreço de venda:..:%f", novo_produto.preco_venda);
+      printf("\nUnidade:.........:%s", novo_produto.unidade);
+      printf("\nFornecedor:......:%s", novo_produto.fornecedor);
+      printf("\nEstoque:.........:%d", novo_produto.quant_est);
+
+      // Solicita confirmação para reativar o produto
+      printf("\nConfirma a reativação do produto: <s/n>\n");
+      scanf(" %c", &confirma);
+
+      // Se confirmado, reativa o produto
+      if (toupper(confirma) == 'S') {
+        printf("\n== Reativando produto... ==\n\n");
+        fseek(arquivoBin, -sizeof(novo_produto), SEEK_CUR);
+        novo_produto.status = 'a'; // Marcando como ativo
+        fwrite(&novo_produto, sizeof(novo_produto), 1, arquivoBin);
+        printf("\n=== Produto reativado com sucesso ===\n");
+      } else {
+        printf("\nReativação do produto cancelada.\n");
+      }
+    } else {
+      printf("\nProduto já está ativo.\n");
+    }
+  } else {
+    printf("\nNumero de registro invalido!\n");
+  }
 }
+
+
