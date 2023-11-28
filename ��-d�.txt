@@ -1,0 +1,16 @@
+Codigo |  Descrição                         | Preco de Venda | Un |  Fornecedor       | Estoque | Status 
+==============================================================================================================
+1       celular samsung                         2560.000      pc       nsung brasil        6     i
+2       calculadora                             36.500         c               ruly        5     a
+3       calculadora                             15.600        pc           apelaria        5     a
+4       maquininha cratao                       152.300       pc    tone pagamentos        2     i
+5       chuveiro fame                           65.900        pc         ame brasil        9     a
+6       notebook acer i5                        3250.000      pc         cer brasil        6     a
+7       mochila estudante                       54.900        pc     estudantil inc       36     a
+8       processador intel core i3 quad          456.000        9                 pc        5     a
+9                                               0.000                             s    32764     i
+10      mouse gamer                             65.900        pc           dell inc        5     a
+11      capinha samsung                         15.000        pc          infoprods        6     a
+12      moletom                                 170.000        a             talles        2     i
+13      oculos de sol                           89.900        pcchilli beans oficial        9     a
+==============================================================================================================
